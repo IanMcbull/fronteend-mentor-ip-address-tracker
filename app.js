@@ -1,12 +1,12 @@
 let map = L.map('map');
-const initMap = (lat, lng) => {
-  map.setView([lat,lng], 13);
+const initMap = (lat, lng, locationDetails) => {
+  map.setView([lat, lng], 13);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  L.marker([lat,lng]).addTo(map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+  L.marker([lat, lng]).addTo(map)
+    .bindPopup(`${locationDetails}`)
     .openPopup();
 }
 
@@ -17,46 +17,46 @@ const uiUpdates = (ipAddress, location, timezone, isp) => {
   document.querySelector('.isp').innerHTML = isp;
 }
 
-const geoIpifyApiCall = async (userInput=undefined) => {
+const geoIpifyApiCall = async (userInput = undefined) => {
   const apiKey = "at_dGnuwdwEI6yAquH9G7GzUTc9MuDaT";
-  if(userInput){
-    if(/\.com/gi.test(userInput)){
+  if (userInput) {
+    if (/\.com/gi.test(userInput)) {
       try {
         const request = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&domain=${userInput}`)
         const data = await request.json();
         console.log(data)
         let locationDetails = `${data.location.region},${data.location.country}  ${data.location.geonameId}`;
         uiUpdates(data.ip, locationDetails, data.location.timezone, data.isp)
-        initMap(data.location.lat, data.location.lng);
+        initMap(data.location.lat, data.location.lng, locationDetails);
       } catch (err) {
         console.log(err)
       }
-    }else{
+    } else {
       try {
         const request = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&ipAddress=${userInput}`)
         const data = await request.json();
         console.log(data)
         let locationDetails = `${data.location.region},${data.location.country}  ${data.location.geonameId}`;
         uiUpdates(data.ip, locationDetails, data.location.timezone, data.isp)
-        initMap(data.location.lat, data.location.lng);
+        initMap(data.location.lat, data.location.lng, locationDetails);
       } catch (err) {
         console.log(err)
       }
     }
-  }else{
+  } else {
     try {
       const request = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}`)
       const data = await request.json();
       let locationDetails = `${data.location.region},${data.location.country}  ${data.location.geonameId}`;
       uiUpdates(data.ip, locationDetails, data.location.timezone, data.isp)
-      initMap(data.location.lat, data.location.lng);
+      initMap(data.location.lat, data.location.lng, locationDetails);
     } catch (err) {
       console.log(err)
     }
   }
-  
+
 }
-const getUserIPInfo = (e) =>{
+const getUserIPInfo = (e) => {
   e.preventDefault();
   const userInput = document.querySelector('.form-control').value;
   geoIpifyApiCall(userInput)
@@ -64,7 +64,7 @@ const getUserIPInfo = (e) =>{
 
 
 // Listen for a submit event on the form
-document.querySelector('form').addEventListener('submit',getUserIPInfo)
+document.querySelector('form').addEventListener('submit', getUserIPInfo)
 
 //Load wi
 window.onload = (e) => {
