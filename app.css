@@ -57,6 +57,8 @@ form{
     min-width: 30px;
     padding: 5px 15px;
     border: none;
+    cursor: pointer;
+    z-index: 4;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }

@@ -17,23 +17,33 @@ const uiUpdates = (ipAddress, location, timezone, isp) => {
   document.querySelector('.isp').innerHTML = isp;
 }
 
-const geoIpifyApiCall = async (ipAddress=undefined) => {
+const geoIpifyApiCall = async (userInput=undefined) => {
   const apiKey = "at_dGnuwdwEI6yAquH9G7GzUTc9MuDaT";
-  if(ipAddress){
-    console.log(ipAddress)
-    try {
-      const request = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&ipAddress=${ipAddress}`)
-      const data = await request.json();
-      console.log(data)
-      let locationDetails = `${data.location.region},${data.location.country}  ${data.location.geonameId}`;
-  
-      uiUpdates(data.ip, locationDetails, data.location.timezone, data.isp)
-      initMap(data.location.lat, data.location.lng);
-    } catch (err) {
-      console.log(err)
+  if(userInput){
+    if(/\.com/gi.test(userInput)){
+      try {
+        const request = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&domain=${userInput}`)
+        const data = await request.json();
+        console.log(data)
+        let locationDetails = `${data.location.region},${data.location.country}  ${data.location.geonameId}`;
+        uiUpdates(data.ip, locationDetails, data.location.timezone, data.isp)
+        initMap(data.location.lat, data.location.lng);
+      } catch (err) {
+        console.log(err)
+      }
+    }else{
+      try {
+        const request = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&ipAddress=${userInput}`)
+        const data = await request.json();
+        console.log(data)
+        let locationDetails = `${data.location.region},${data.location.country}  ${data.location.geonameId}`;
+        uiUpdates(data.ip, locationDetails, data.location.timezone, data.isp)
+        initMap(data.location.lat, data.location.lng);
+      } catch (err) {
+        console.log(err)
+      }
     }
   }else{
-    console.log("No ip address")
     try {
       const request = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}`)
       const data = await request.json();
@@ -44,19 +54,18 @@ const geoIpifyApiCall = async (ipAddress=undefined) => {
       console.log(err)
     }
   }
+  
 }
 const getUserIPInfo = (e) =>{
   e.preventDefault();
-  const ipAddress = document.querySelector('.form-control').value;
-  geoIpifyApiCall(ipAddress)
-  console.log('User information is being submitted')
+  const userInput = document.querySelector('.form-control').value;
+  geoIpifyApiCall(userInput)
 }
 
 
 // Listen for a submit event on the form
 document.querySelector('form').addEventListener('submit',getUserIPInfo)
 
-// https://geo.ipify.org/api/v2/country,city?apiKey=at_dGnuwdwEI6yAquH9G7GzUTc9MuDaT&ipAddress=8.8.8.8
 //Load wi
 window.onload = (e) => {
   geoIpifyApiCall()
