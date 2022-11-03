@@ -1,6 +1,4 @@
-# Frontend Mentor Challenge (IP Address Tra
-
-![Design preview for the IP address tracker coding challenge](./design/desktop-preview.jpg)
+# Frontend Mentor Challenge (IP Address Tracker)
 
 ## The challenge
 
