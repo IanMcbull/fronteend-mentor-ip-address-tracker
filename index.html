@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-    crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-    crossorigin=""></script>
-    <link rel="stylesheet" href="app.css" type="text/css"/>
-    <title>IP Tracker</title>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>IP Address Tracker</h1>
-            <form>
-                <input class="form-control" placeholder="Search for any IP address or domain"/>
-                <button class="form-submit-btn" type="submit"><img src="./images/icon-arrow.svg"/></button>
-            </form>
-        </header>
-        <div class="card-container">
-            <section class="card">
-                <div class="card-info">
-                  <h4>IP Addresses</h4>
-                  <p class="ip-address">192.168.0.1</p>
-                </div>
-                <div class="card-info">
-                  <h4>Location</h4>
-                  <p>Nairobi, Kenya</p>
-                </div>
-                <div class="card-info">
-                  <h4>Timezone</h4>
-                  <p>GMT-3 -1000</p>
-                </div>
-                <div class="card-info">
-                  <h4>ISP</h4>
-                  <p>Safaricom, Ke</p>
-                </div>
-              </section>
-        </div>
-        <section id="map">
 
-        </section>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+  <link rel="stylesheet" href="app.css" type="text/css" />
+  <title>IP Tracker</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>IP Address Tracker</h1>
+      <form>
+        <input class="form-control" placeholder="Search for any IP address or domain" type="text"/>
+        <button class="form-submit-btn" type="submit"><img src="./images/icon-arrow.svg" /></button>
+      </form>
+    </header>
+    <div class="card-container">
+      <section class="card">
+        <div class="card-info">
+          <h4>IP Addresses</h4>
+          <p class="ip-address"></p>
+        </div>
+        <div class="card-info">
+          <h4>Location</h4>
+          <p class="location"></p>
+        </div>
+        <div class="card-info">
+          <h4>Timezone</h4>
+          <p class="timezone"></p>
+        </div>
+        <div class="card-info">
+          <h4>ISP</h4>
+          <p class="isp"></p>
+        </div>
+      </section>
     </div>
-    <script src="app.js"></script>
+    <section id="map">
+
+    </section>
+  </div>
+  <script src="app.js"></script>
 </body>
+
 </html>
